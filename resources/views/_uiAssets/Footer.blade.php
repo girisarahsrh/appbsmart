@@ -24,10 +24,15 @@
     <script src="/Assets/dist/js/pages/dashboards/dashboard1.min.js"></script>
     <script src="/Assets/assets/extra-libs/select2/select2.min.js"></script>
     <script src="/Assets/assets/extra-libs/datatablesnet/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/rowgroup/1.1.3/js/dataTables.rowGroup.min.js"></script>
-    <script src="/Assets/assets/dist/js/pages/datatable/datatable-basic.init.js"></script>
-    <script src="https://rawgit.com/RobinHerbots/jquery.inputmask/3.x/dist/jquery.inputmask.bundle.js"></script>
+    <script src="/Assets/assets/extra-libs/datatablesnet/js/dataTables.rowGroup.min.js"></script>
+    {{-- <script src="/Assets/assets/dist/js/pages/datatable/datatable-basic.init.js"></script> --}}
+    <script src="/Assets/assets/extra-libs/inputmask/jquery.inputmask.bundle.js"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    
+
+    
+    
 
     <!-- ============================================================== -->
     <script>

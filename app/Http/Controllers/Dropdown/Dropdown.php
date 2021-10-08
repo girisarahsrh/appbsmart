@@ -426,4 +426,42 @@ class Dropdown extends Controller
         return response()->json($appcombo);
 
     }
+
+    public function findunitkerja(Request $request)
+
+    {
+
+            if(!empty($request->search)){
+                $unitkerjacombo = DB::table('t_unitkerja')
+                ->select('*')
+                ->where("nama_unit", "LIKE", "%{$request->search}%")
+                ->where("id_satker", $request->satker)
+                ->get();
+                }else{
+                $unitkerjacombo = DB::table('t_unitkerja')
+                ->select('*')
+                ->where("id_satker", $request->satker)
+                ->get();
+                }
+        return response()->json($unitkerjacombo);
+
+    }
+
+    public function findppk(Request $request)
+
+    {
+
+            if(!empty($request->search)){
+                $ppkcombo = DB::table('r_ppk')
+                ->select('*')
+                ->where("nama", "LIKE", "%{$request->search}%")
+                ->get();
+                }else{
+                $ppkcombo = DB::table('r_ppk')
+                ->select('*')
+                ->get();
+                }
+        return response()->json($ppkcombo);
+
+    }
 }

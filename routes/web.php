@@ -33,10 +33,20 @@ Route::get('getPembagianPagu', 'Anggaran\PembagianPagu@getAnggaran');
 //Inline Editing - Add By Giri 30-Sept-2021
 Route::post('PembagianPagu/Update','Anggaran\PembagianPagu@UpdateAnggaran');
 
+//Get Edit Unit Program - Add By Giri 08-Okt-2021
+Route::GET('EditUnit', 'Anggaran\PembagianPagu@EditUnit');
+Route::POST('EditUnit/Update', 'Anggaran\PembagianPagu@UpdateUnit');
+//UPDATE PPK - Add By Giri 08-Okt-2021
+Route::POST('EditPpk/Update', 'Anggaran\PembagianPagu@UpdatePpk');
+
+
+
 //View Mapping APP - Add By Giri 04-Okt-2021
 Route::get('/MappingApp', 'Anggaran\MappingApp@index');
 //Tabel - Add By Giri 28-Sept-2021
 Route::get('getMapping', 'Anggaran\MappingApp@getMapping');
+
+
 
 
 
@@ -58,3 +68,5 @@ Route::post('/findsex', 'Dropdown\Dropdown@findsex');
 Route::post('/findagama', 'Dropdown\Dropdown@findagama');
 Route::post('/findsatker', 'Dropdown\Dropdown@findsatker');
 Route::post('/findapp', 'Dropdown\Dropdown@findapp');
+Route::post('/findunitkerja', 'Dropdown\Dropdown@findunitkerja');
+Route::post('/findppk', 'Dropdown\Dropdown@findppk');
