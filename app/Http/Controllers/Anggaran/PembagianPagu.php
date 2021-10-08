@@ -226,6 +226,12 @@ class PembagianPagu extends Controller
 
                 if($Trigger == "program"){
                         $kode = "kdprogram";
+
+                        $selectBagiPagu = DB::table('d_pagu')
+                        ->select('kdindex')
+                        ->where(''.$kode.'',$request->kode)
+                        ->get();
+
                     }else if($Trigger == "kegiatan"){
                         $kode = "kdgiat";
                         $program = "kdprogram";
@@ -339,14 +345,29 @@ class PembagianPagu extends Controller
                         ]);
                     }
                 }else{
-                    for($i= 0; $i < count($selectBagiPagu); $i++ ){
+
+                    if(count($selectBagiPagu) == 0){
+                        for($i= 0; $i < count($selectBagiPagu); $i++ ){
+    
+                            DB::table('d_bagipagu')
+                                ->insert([
+                                "id_unit" => $request->unitselect2,
+                                "kdsatker" => $request->kode_satker,
+                                "kdindex" => $selectBagiPagu[$i]->kdindex,
+                                
+                            ]);
+                        }
+                    }else{
+                        for($i= 0; $i < count($selectBagiPagu); $i++ ){
                    
-                        DB::table('d_bagipagu')
-                            ->where('kdindex', $selectBagiPagu[$i]->kdindex)
-                            ->update([
-                            "id_unit" => $request->unitselect2,
-                            
-                        ]);
+                            DB::table('d_bagipagu')
+                                ->where('kdindex', $selectBagiPagu[$i]->kdindex)
+                                ->update([
+                                "id_unit" => $request->unitselect2,
+                                
+                            ]);
+                    }
+                    
                     }
                 }
                 
@@ -361,6 +382,14 @@ class PembagianPagu extends Controller
 
                 if($Trigger == "program"){
                         $kode = "kdprogram";
+
+                        $selectBagiPagu = DB::table('d_pagu')
+                        ->select('kdindex')
+                        ->where(''.$kode.'',$request->kode)
+                        ->get();
+                        
+
+
                     }else if($Trigger == "kegiatan"){
                         $kode = "kdgiat";
                         $program = "kdprogram";
@@ -415,6 +444,8 @@ class PembagianPagu extends Controller
 
 
                     }else if($Trigger == "sub_komponen"){
+
+                        
                         $kode = "kdskmpnen";
                         $program = "kdprogram";
                         $kegiatan = "kdgiat";
@@ -424,7 +455,7 @@ class PembagianPagu extends Controller
 
                         $selectBagiPagu = DB::table('d_pagu')
                                 ->select('kdindex')
-                                ->where(''.$kode.'',$request->kode)
+                                ->where(''.$kode.'',str_replace ('+', ' ', $request->kode))
                                 ->where(''.$program.'',$request->kode_program)
                                 ->where(''.$kegiatan.'',$request->kode_kegiatan)
                                 ->where(''.$output.'',$request->kode_output)
@@ -450,14 +481,29 @@ class PembagianPagu extends Controller
                         ]);
                     }
                 }else{
-                    for($i= 0; $i < count($selectBagiPagu); $i++ ){
+
+                    if(count($selectBagiPagu) == 0){
+                        for($i= 0; $i < count($selectBagiPagu); $i++ ){
+    
+                            DB::table('d_bagipagu')
+                                ->insert([
+                                "id_ppk" => $request->ppkselect2,
+                                "kdsatker" => $request->kode_satker,
+                                "kdindex" => $selectBagiPagu[$i]->kdindex,
+                                
+                            ]);
+                        }
+                    }else{
+                        for($i= 0; $i < count($selectBagiPagu); $i++ ){
                    
-                        DB::table('d_bagipagu')
+                            DB::table('d_bagipagu')
                             ->where('kdindex', $selectBagiPagu[$i]->kdindex)
                             ->update([
                             "id_ppk" => $request->ppkselect2,
                             
                         ]);
+                        }
+                    
                     }
                 }
 
