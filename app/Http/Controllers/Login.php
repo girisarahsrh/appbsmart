@@ -30,7 +30,7 @@ class Login extends Controller
         $username = $request["username"];
         $password = $request["password"];
 
-        $client = new \GuzzleHttp\Client();
+        $client = new \GuzzleHttp\Client(['verify' => false ]);
 
         $response = $client->request('POST', 'https://map.bpkp.go.id/api/v2/login', [
             'form_params' => [
