@@ -48,6 +48,64 @@ class MappingApp extends Controller
     				->where('id', $request->id)
     				->update(['flag'=> $request->flag]);
     }
+
+    public function UpdateMappingApp(Request $request)
+        {
+
+            
+
+            $selectNamaApp = 
+                DB::table('t_app')
+                ->select('nama_app')
+                ->where("id",$request->app)
+                ->get();
+
+            $countR_mak = 
+                DB::table('d_detailapp')
+                ->select('id_r_mak')
+                ->where("id_r_mak",$request->id_mak)
+                ->where("nama_app",$selectNamaApp[0]->nama_app)
+                ->get();
+
+                if(count($countR_mak) == 0){
+                   
+                        DB::table('d_detailapp')
+                            ->insert([
+                            "nama_app" => $selectNamaApp[0]->nama_app,
+                            "jumlah" => $request->jumlah,
+                            "id_r_mak" => $request->id_mak,
+                            "created_by" => $request->session,
+                            
+                        ]);
+                     }else{
+
+                        DB::table('d_detailapp')
+                            ->where('id_r_mak', $request->id_mak)
+                            ->where("nama_app",$selectNamaApp[0]->nama_app)
+                            ->update([
+                            "jumlah" => $request->jumlah,
+                            "updated_by" => $request->session,
+                            
+                        ]);
+
+                    }
+                    return redirect('/MappingApp');
+
+        }
+
+        public function Detail(Request $request){
+
+            $mappingDetail = DB::select(
+                DB::raw(" 
+                       Select * from d_detailapp where id_r_mak = '".$request->id_mak."'
+                        "
+                    )
+            );
+    
+            return DataTables::of($mappingDetail)->make(true);
+        }
+
+        
     
 
 }

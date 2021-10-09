@@ -46,6 +46,13 @@ Route::get('/MappingApp', 'Anggaran\MappingApp@index');
 //Tabel - Add By Giri 28-Sept-2021
 Route::get('getMapping', 'Anggaran\MappingApp@getMapping');
 
+//Get Edit Mapping App - Add By Giri 09-Okt-2021
+Route::GET('EditMappingApp', 'Anggaran\MappingApp@EditMappingApp');
+Route::POST('EditMappingApp/Update', 'Anggaran\MappingApp@UpdateMappingApp');
+
+//View DEtail Mapping APP - Add By Giri 04-Okt-2021
+Route::get('/getMapping/Detail', 'Anggaran\MappingApp@Detail');
+
 
 
 

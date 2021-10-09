@@ -113,7 +113,7 @@
                            <select id="unitselect2" name="unitselect2" class="dt-select2-unit-kerja" ></select>
                         </div>
 
-                        <div style="">
+                        <div style="display: none">
                             <div class="form-group">
                                 <label for="emailaddress1">Kode</label>
                             <input type="text" id="kode" name="kode">
@@ -205,7 +205,7 @@
                            <select id="ppkselect2" name="ppkselect2" class="dt-select2-ppk-kerja" ></select>
                         </div>
 
-                        <div style="">
+                        <div style="display: none">
                             <div class="form-group">
                                 <label for="emailaddress1">Kode</label>
                             <input type="text" id="kode_ppk" name="kode">

@@ -17,19 +17,19 @@ class UserSession extends Controller
         $satKer = $body['message']['namaunit'];
         // dd($body);
 
-        $getUser = DB::table('userku')->selectRaw('userid, count(userid) as countUserid')
+        $getUser = DB::table('userku')->selectRaw('userid')
                     ->where('userid',$nip)->groupBy('userid')->get();
 
        
-
-        if($getUser[0]->countUserid < 0){
+        //dd($body);
+        if(count($getUser) == 0){
 
             $this->InsertUserku($getUser, $nip);
 
         }
 
-        $getSatker = DB::table('r_satker')->select('new_id_satker as satker_id','satker as satker_nama')
-        ->where('satker', 'like', '%' . $satKer . '%')->get();
+        $getSatker = DB::table('t_satker')->select('kdsatker as satker_id','nmsatker as satker_nama')
+        ->where('nmsatker', 'like', '%' . $satKer . '%')->get();
 
         $getPegawai =DB::table('r_pegawai')
                     ->join('userku', 'userku.userid', '=', 'r_pegawai.nip')
@@ -68,7 +68,10 @@ class UserSession extends Controller
             "new_id_rule" => 24
             ]);
 
+            return $getPegawai;
+
     }
+   
 
 
 

@@ -1,12 +1,12 @@
 <script>
-        $("#jumlah").inputmask({
-            prefix : 'Rp ',
-            radixPoint: ',',
-            groupSeparator: ".",
-            alias: "numeric",
-            autoGroup: true,
-            digits: 0
-        });
+        // $("#jumlah").inputmask({
+        //     prefix : 'Rp ',
+        //     radixPoint: ',',
+        //     groupSeparator: ".",
+        //     alias: "decimal",
+        //     autoGroup: true,
+        //     digits: 0
+        // });
 
 
     $('#Satker').select2({
@@ -40,7 +40,7 @@
                 }
         });
 
-        $('#App').select2({
+        $('#app').select2({
                 placeholder: 'Pilih...',
                 ajax: {
                 url: '{!!URL::to('/findapp')!!}',
@@ -120,7 +120,7 @@
     
                     {data: 'id',
                         render: function (data, type, row) {
-                            return '<a href="javascript:;" onclick="Detail()">'+data+'</a>';
+                            return '<a href="javascript:;" onclick="Detail(`'+data+'`)">'+data+'</a>';
                         }
                     },
     
@@ -132,7 +132,7 @@
                         render: function (data, type, row) {
                                 //return '<a href="javascript:;" onclick="UpdateInline(`'+data+'`)">1</a>';  
                                 if(row.label == "MAK"){
-                                    return '<button class="btn btn-sm btn-success" data-toggle="modal" data-target="#login-modal"> <i class ="fas fa-plus"></i> APP</button>';                    
+                                    return '<button class="btn btn-sm btn-success" onclick="showModalMappingApp(`'+data+'`)"> <i class ="fas fa-plus"></i> APP</button>';                    
                                 }else{
                                     return '';
                                 }
@@ -159,63 +159,71 @@
       }
     }
     
-    // function Update(Id,selectObject) {
-    //   var value = selectObject.value;  
-    //   Swal.fire({
-    //             title: "Apakah Yakin Ingin Merubah?",
-    //             icon: "question",
-    //             showCancelButton: true,
-    //             confirmButtonText: "Ya, Ubah!",
-    //             cancelButtonText: "Batal",
-    //             }).then(function (result) {
-    //                 if (result.value) {
-    //                   Execute(Id, value);
-    //                 }
-    //             });
-    // }
     
-    function Update(selectObject) {
-        var value = selectObject.value;
-        var Id = selectObject.id;
-            var formData = new FormData();
-            formData.append("_token", '{{ csrf_token() }}');
-            formData.append("id", Id);
-            formData.append("flag", value);
-    
-                $.ajax({
-                    type: "POST",
-                    data: formData,
-                    url: '{!!URL::to('/PembagianPagu/Update')!!}',
-                    processData: false,
-                    contentType: false,
-                    success: function (data, textStatus, jqXHR) {
-                        show_msg();
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) { },
-                });
-            }
-    
-            function show_msg(){
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Berubah!',
-                  text: 'Berhasil Diubah.',
-                  showConfirmButton: true,
-                  timer: 5000
-              });
-            }
      
     
-            function showModal(){
-                var modal = document.getElementById("AppModal");
-                modal.style.display = "block";
-            }
+    function showModalMappingApp(id){
+                $('#id_mak').val(id);
+                $('#AppModal').modal('show');
         
+        // var modal = document.getElementById("AppModal");
+        // modal.style.display = "block";
+    }
+        
+    var grid_tabel_detail = "#tabel_detail";
+    function Detail(id_mak) {
+      
+        $(grid_tabel_detail).DataTable({
+                serverSide: true,
+                processing: true,
+                searchDelay: 500,
+                bDestroy: true,
+                ajax: {
+                    url: '{{url('getMapping/Detail')}}',
+                    data: function (d) {
+                        
+                    d._token = "{{ csrf_token() }}",
+                    d.id_mak = id_mak
+                },
+            },
+                autoWidth: false,
+                columns: [
+
+                    {
+                        data: null, class: "text-center",
+                        render: function (data, type, row, meta) {
+                            return meta.row + meta.settings._iDisplayStart + 1;
+                        }
+                    },
+               
     
-    function Detail() {
-        $('#card_detail').fadeIn();
+                    {data: 'nama_app'},
+    
+                    {data: 'jumlah',className: "text-right", render: $.fn.dataTable.render.number( ',', '.', 0 )}
+    
+                ],
+                pageLength: 10,
+                lengthMenu: [[5, 10, 25, 50, -1], [5, 10, 25, 50, "All"]],
+                order: [1, "asc"],
+                searching: true,
+                bFilter: false,
+                scrollCollapse: true,
+                columnDefs: [],
+    
+                initComplete: function (settings, json) {
+                    $(grid_tabel_detail).wrap('<div class="table-responsive"></div>');
+                },
+            
+            });
+    
+      $('#card_detail').fadeIn();
+        
+    }
+
+    // function Detail() {
+    //     $('#card_detail').fadeIn();
      
-     }
+    //  }
 
      function Filter() {
         $('#card_table').fadeIn();

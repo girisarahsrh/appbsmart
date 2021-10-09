@@ -119,7 +119,7 @@
     </div>
 
     <!-- SignIn modal content -->
-    <div id="login-modal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
+    <div id="AppModal" class="modal fade" tabindex="-1" role="dialog" aria-hidden="true">
         <div class=" modal-dialog modal-dialog-centered">
             <div class="modal-content">
                 <div class="modal-header">
@@ -130,28 +130,39 @@
 
                 <div class="modal-body">
 
-                    <form action="#" class="pl-3 pr-3">
+                    <form role="form" action="EditMappingApp/Update" method="POST" class="pl-3 pr-3">
+                        @csrf
 
                         <div class="form-group">
                             <label for="emailaddress1">Nama APP</label>
-                           <select id="App" name="app"></select>
+                           <select id="app" name="app"></select>
                         </div>
 
                         <div class="form-group">
                             <label for="password1">Jumlah</label>
                             <input class="form-control" type="text" required=""
-                                id="jumlah" placeholder="00.000.000">
+                                id="jumlah" name="jumlah" placeholder="00.000.000">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emailaddress1">Id Mak</label>
+                        <input type="text" id="id_mak" name="id_mak">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="emailaddress1">Session Nama</label>
+                        <input type="text" id="session" name="session" value="{{session()->get('pegawai_nama')}}">
                         </div>
 
                         <div class="form-group text-center">
                             <div class="row">
-                            <div class="col-md-6">
-                            <button class="btn btn-rounded btn-primary col-md-12" type="submit">Simpan</button>
-                            </div>
-                            <div class="col-md-6">
-                            <button class="btn btn-rounded btn-danger col-md-12" data-dismiss="modal"
-                            aria-hidden="true">Batal</button>
-                            </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-rounded btn-primary col-md-12" type="submit">Simpan</button>
+                                </div>
+                                <div class="col-md-6">
+                                    <button class="btn btn-rounded btn-danger col-md-12" data-dismiss="modal"
+                                    aria-hidden="true">Batal</button>
+                                </div>
                             </div>
                         </div>
 

@@ -455,7 +455,7 @@ class PembagianPagu extends Controller
 
                         $selectBagiPagu = DB::table('d_pagu')
                                 ->select('kdindex')
-                                ->where(''.$kode.'',str_replace ('+', ' ', $request->kode))
+                                ->where(''.$kode.'',$request->kode)
                                 ->where(''.$program.'',$request->kode_program)
                                 ->where(''.$kegiatan.'',$request->kode_kegiatan)
                                 ->where(''.$output.'',$request->kode_output)
